@@ -10,7 +10,6 @@ import ChatMessage from "./ChatMessage";
 var audio = new Audio("../assets/tones/Notification.mp3");
 
 function ChatMain(props) {
-  console.log("audio", audio);
   const location = useLocation();
   const history = useHistory();
   const [users, setusers] = useState([]);
@@ -32,12 +31,14 @@ function ChatMain(props) {
     let ele = document.createElement("div");
     ReactDOM.render(<ChatMessage message={message} />, ele);
     chatContainer.append(ele);
-    if (message.pos === "left") audio.play();
+    if (message.pos === "left"){
+      var audio = new Audio("../assets/tones/Notification.mp3");
+      audio.play();
+    } 
     chatContainer.scrollTop = chatContainer.scrollHeight;
   };
 
   useEffect(() => {
-    console.log('user', user)
     socket.emit("new-user-joined", user);
     socket.on("user-joined", (user) => {
       setusers([...users, { name: user.name, gender: user.gender }]);
@@ -54,7 +55,6 @@ function ChatMain(props) {
     });
   
     socket.on("receive", (data) => {
-      console.log("data", data);
       addMessage({
         message: `${data.user.name} : ${data.message}`,
         pos: "left",
