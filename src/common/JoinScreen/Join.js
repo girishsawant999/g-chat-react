@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { socket } from "../../serverConfig";
 
 const Join = () => {
   const history = useHistory();
