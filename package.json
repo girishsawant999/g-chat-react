@@ -3,19 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "autoprefixer": "^9.8.4",
     "bootstrap": "^4.5.0",
+    "cra-template": "1.0.3",
     "node-sass": "^4.14.1",
+    "postcss-cli": "^7.1.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "socket.io-client": "^2.3.0",
-  },
-  "dev-dependencies" : {
-    "autoprefixer": "^9.8.4",
-    "tailwindcss": "^1.4.6",
-    "postcss-cli": "^7.1.1",
-    "cra-template": "1.0.3"
+    "tailwindcss": "^1.4.6"
   },
   "scripts": {
     "build:tailwind": "tailwindcss build src/tailwind.css -o src/tailwind.output.css",
