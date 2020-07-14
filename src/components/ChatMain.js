@@ -7,7 +7,6 @@ import ChatInput from "./ChatInput";
 import "./ChatMain.scss";
 import ChatMessage from "./ChatMessage";
 
-var audio = new Audio("../assets/tones/Notification.mp3");
 
 function ChatMain(props) {
   const location = useLocation();
