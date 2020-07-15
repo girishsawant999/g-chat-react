@@ -4,10 +4,10 @@ import { useHistory, useLocation } from "react-router-dom";
 import { socket } from "../serverConfig";
 import ChatHeader from "./ChatHeader";
 import ChatInput from "./ChatInput";
+import ChatListWeb from "./ChatListWeb";
 import "./ChatMain.scss";
 import ChatMessage from "./ChatMessage";
-import picMale from "../assets/images/avatars/pic-1-m.png";
-import picFemale from "../assets/images/avatars/pic-2-m.png";
+import ChatListMob from "./ChatListMob";
 
 function ChatMain(props) {
   const location = useLocation();
@@ -41,15 +41,23 @@ function ChatMain(props) {
     chatContainer.scrollTop = chatContainer.scrollHeight;
   };
   const toggle = (cond) => {
-    const chatList = document.getElementById("chatList");
-    const chatContainer = document.getElementById("chatContainer");
-    if (!(chatList && chatContainer)) return;
-    if (cond) {
-      chatList.style.display = "block";
-      chatContainer.style.display = "none";
+    // const chatList = document.getElementById("chatList");
+    // const chatContainer = document.getElementById("chatContainer");
+    // if (!(chatList && chatContainer)) return;
+    // if (cond) {
+    //   chatList.style.display = "block";
+    //   chatContainer.style.display = "none";
+    // } else {
+    //   chatList.style.display = "none";
+    //   chatContainer.style.display = "block";
+    // }
+    const ele = document.getElementById("chatlistmob");
+    if (ele.classList.contains("-m-margin-screen")) {
+      ele.classList.remove("-m-margin-screen");
+      ele.classList.add("m-margin-screen");
     } else {
-      chatList.style.display = "none";
-      chatContainer.style.display = "block";
+      ele.classList.add("-m-margin-screen");
+      ele.classList.remove("m-margin-screen");
     }
   };
 
@@ -85,62 +93,30 @@ function ChatMain(props) {
 
     socket.on("receive", (data) => {
       addMessage({
-          message: `${data.user.name} : ${data.message}`,
-          pos: "left",
-          notice: true,
-        });
+        message: `${data.user.name} : ${data.message}`,
+        pos: "left",
+        notice: true,
+      });
     });
 
     return () => {};
   }, []);
   return (
-      <div class="row h-screen mx-0 bg-gray-400 overflow-hidden">
-        <div
-          id="chatList"
-          class="col-md-4 col-12 col-sm-4 px-0 m-hidden border-gray-700 border-r-1 border-blue-700 md:border-r-2 xl:border-r-2 lg:border-r-2"
-        >
-          <div class="bg-blue-700 text-white text-center py-4">
-            <h2>G-Chat</h2>
-          </div>
-          <div class="row mx-0 py-2">
-            <div class="col-md-12 col-sm-12 col-12 text-right">
-              <div
-                onClick={() => {
-                  toggle(false);
-                }}
-                class="font-medium"
-              >
-                Start Chat{" "}
-                <i class="fa fa-align-justify px-2" aria-hidden="true"></i>
-              </div>
-            </div>
-          </div>
-          <div class="row mx-0">
-            <div class="col-md-12 col-12 col-sm-12 px-1">
-              {Object.values(users).map((user) => (
-                <div class="row mx-0 py-2 my-1 bg-gray-200 rounded-lg">
-                  <div class="col-md-2 col-sm-2 col-2 self-center">
-                    <img
-                      src={user.gender === "male" ? picMale : picFemale}
-                      alt="profile"
-                    />
-                  </div>
-                  <div class="col-md-10 col-sm-10 col-10 self-center">
-                    {user.name}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-        <div id="chatContainer" class="col-md-8 col-12 col-sm-8 px-0">
-          <ChatHeader user={user} logout={logout} toggle={toggle} />
-          <div class="row mx-0 rounded-lg">
-            <div class="col-md-12 col-12 col-sm-12 py-2 bg-gray-200  overflow-auto chatContainer"></div>
-          </div>
-          <ChatInput sendMessage={sendMessage} />
-        </div>
+    <div class="row h-screen mx-0 bg-gray-400 overflow-hidden">
+      <div
+        id="chatList"
+        class="col-md-4 col-12 col-sm-4 px-0 border-gray-700 border-r-1 border-blue-700 md:border-r-2 xl:border-r-2 lg:border-r-2">
+        <ChatListWeb toggle={toggle} users={users} />
+        <ChatListMob toggle={toggle} users={users} />
       </div>
+      <div id="chatContainer" class="col-md-8 col-12 col-sm-8 px-0">
+        <ChatHeader user={user} logout={logout} toggle={toggle} />
+        <div class="row mx-0 rounded-lg">
+          <div class="col-md-12 col-12 col-sm-12 py-2 bg-gray-200  overflow-auto chatContainer"></div>
+        </div>
+        <ChatInput sendMessage={sendMessage} />
+      </div>
+    </div>
   );
 }
 

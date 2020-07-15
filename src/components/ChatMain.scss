@@ -1,36 +1,70 @@
 .chatContainer {
-    height: calc( 100vh - 145px );
+  height: calc(100vh - 145px);
 }
 .m-display {
-    display: none;
+  display: none;
 }
 @media screen and (max-width: 576px) {
-    .btn-m-sm {
-        font-size: small;
-    }
-    .m-hidden {
-        display: none;
-    }
-    .m-display {
-        display: block;
-    }
-    .icons .fa {
-        padding-left: 5px !important;
-        padding-right: 5px !important;
-    }
+  .btn-m-sm {
+    font-size: small;
   }
-
-  .dropdown {
-    position: relative;
-    display: inline-block;
-  }
-  
-  .dropdown-content {
+  .m-hidden {
     display: none;
-    position: absolute;
-    min-width: 160px;
-    right: 0px;
-    overflow: auto;
-    z-index: 1;
   }
-  .show {display: block;}
+  .m-display {
+    display: block;
+  }
+  .icons .fa {
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+  }
+  #chatlistmob {
+    -webkit-transition: margin 1s ease-in-out;
+    -moz-transition: margin 1s ease-in-out;
+    -o-transition: margin 1s ease-in-out;
+    transition: margin 1s ease-in-out;
+  }
+  .-m-margin-screen {
+    margin-top: -100vh;
+  }
+  .m-margin-screen {
+    margin-top: 0vh;
+  }
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  //   display: none;
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  min-width: 160px;
+  right: 0px;
+  overflow: auto;
+  z-index: 1;
+  -webkit-transition: opacity 600ms, visibility 600ms;
+  -moz-transition: opacity 600ms, visibility 600ms;
+  -o-transition: opacity 600ms, visibility 600ms;
+  transition: opacity 600ms, visibility 600ms;
+}
+.show {
+  //   display: block;
+  visibility: visible;
+  opacity: 1;
+}
+.sticky-bottom {
+  position: absolute;
+  bottom: 15px;
+  left: calc(50% - 12px);
+  z-index: 1;
+}
+.max-h-50 {
+  max-height: 50px;
+}
+.max-w-message {
+  max-width: 75%;
+}
