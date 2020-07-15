@@ -1,8 +1,21 @@
 .chatContainer {
     height: calc( 100vh - 145px );
 }
+.m-display {
+    display: none;
+}
 @media screen and (max-width: 576px) {
     .btn-m-sm {
         font-size: small;
+    }
+    .m-hidden {
+        display: none;
+    }
+    .m-display {
+        display: block;
+    }
+    .icons .fa {
+        padding-left: 5px !important;
+        padding-right: 5px !important;
     }
   }
