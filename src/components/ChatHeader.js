@@ -4,6 +4,15 @@ import picFemale from "../assets/images/avatars/pic-2-m.png";
 import "./ChatMain.scss";
 
 function ChatHeader(props) {
+  window.onclick = function(event) {
+    if (!event.target.matches('.fa-ellipsis-v')) {
+      const dropdowns = document.getElementById("myDropdown")
+        if (dropdowns && dropdowns.classList.contains('show')) {
+          dropdowns.classList.remove('show');
+        }
+      }
+    }
+  
   return (
     <div class="row mx-0 py-2 bg-gray-400">
       <div class="col-md-2 col-sm-3 col-3">
