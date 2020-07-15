@@ -22,10 +22,10 @@ function ChatMain(props) {
     socket.emit("send", message);
     return true;
   };
-  
-  const logout = () =>{
+
+  const logout = () => {
     history.push("/");
-  }
+  };
 
   const addMessage = (message) => {
     const chatContainer = document.querySelector(".chatContainer");
@@ -39,35 +39,37 @@ function ChatMain(props) {
     chatContainer.scrollTop = chatContainer.scrollHeight;
   };
   const toggle = (cond) => {
-    const chatList = document.getElementById("chatList")
-    const chatContainer = document.getElementById("chatContainer")
-    if (! (chatList && chatContainer)) return;
-    if(cond) {
-      chatList.style.display = "block"
-      chatContainer.style.display = "none"
+    const chatList = document.getElementById("chatList");
+    const chatContainer = document.getElementById("chatContainer");
+    if (!(chatList && chatContainer)) return;
+    if (cond) {
+      chatList.style.display = "block";
+      chatContainer.style.display = "none";
     } else {
-      chatList.style.display = "none"
-      chatContainer.style.display = "block"
+      chatList.style.display = "none";
+      chatContainer.style.display = "block";
     }
-
-  }
+  };
 
   useEffect(() => {
     socket.emit("new-user-joined", user);
-    socket.on("user-joined", (user) => {
-      setusers([...users,user])
+    socket.on("get-users-list", (userId, allUsers) => {
+      setusers(allUsers);
+    });
+    socket.on("user-joined", (userId, allUsers) => {
+      setusers(allUsers);
       addMessage({
-        message: `${user.name} joined the chat`,
+        message: `${allUsers[userId].name} joined the chat`,
         pos: "left",
         notice: true,
       });
     });
 
-    socket.on("left", (user) => {
-      user && setusers(users.filter((tempUser) => tempUser.name !== user.name));
-      user &&
+    socket.on("left", (userId, allUsers) => {
+      setusers(allUsers);
+      allUsers[userId] &&
         addMessage({
-          message: `${user.name} left the chat`,
+          message: `${allUsers[userId].name} left the chat`,
           pos: "left",
           notice: true,
         });
@@ -85,33 +87,39 @@ function ChatMain(props) {
   }, []);
   return (
     <div class="h-screen w-screen">
-      
-    {console.log('users', users)}
       <div class="row mx-0 bg-gray-400 ">
-        <div id="chatList" class="col-md-4 col-12 h-screen col-sm-4 m-hidden border-gray-700 border-r-1 border-blue-700 md:border-r-2 xl:border-r-2 lg:border-r-2">
+        <div
+          id="chatList"
+          class="col-md-4 col-12 h-screen col-sm-4 m-hidden border-gray-700 border-r-1 border-blue-700 md:border-r-2 xl:border-r-2 lg:border-r-2"
+        >
           <div class="text-white text-center py-3">
-            <div class="rounded-full bg-blue-700 py-3">
+            <div class="rounded-full bg-blue-700 py-2">
               <h2>G-Chat</h2>
             </div>
           </div>
-          <hr class="mt-0"/>
+          <hr class="mt-0" />
           <div class="row mx-0 py-2">
             <div class="col-md-12 col-sm-12 col-12 text-right">
-              <div onClick={()=>{toggle(false)}}>
-                Start Chat <i class="fa fa-align-justify px-2" aria-hidden="true"></i>
+              <div
+                onClick={() => {
+                  toggle(false);
+                }}
+              >
+                Start Chat{" "}
+                <i class="fa fa-align-justify px-2" aria-hidden="true"></i>
               </div>
             </div>
           </div>
           <div class="row mx-0">
-            {users.map(user => 
+            {Object.values(users).map((user) => (
               <div class="py-2">
                 {user.name} &nbsp;&nbsp; {user.gender}
               </div>
-            )}
+            ))}
           </div>
         </div>
         <div id="chatContainer" class="col-md-8 col-12 col-sm-8 px-0">
-          <ChatHeader user={user} logout={logout} toggle={toggle}/>
+          <ChatHeader user={user} logout={logout} toggle={toggle} />
           <div class="row mx-0 rounded-lg">
             <div class="col-md-12 col-12 col-sm-12 py-2 bg-gray-200  overflow-auto chatContainer"></div>
           </div>
