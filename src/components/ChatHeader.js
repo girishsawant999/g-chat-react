@@ -1,6 +1,7 @@
 import React from "react";
 import picMale from "../assets/images/avatars/pic-1-m.png";
 import picFemale from "../assets/images/avatars/pic-2-m.png";
+import "./ChatMain.scss";
 
 function ChatHeader(props) {
   return (
@@ -20,21 +21,26 @@ function ChatHeader(props) {
       </div>
       <div class="col-md-2 col-sm-2 col-2 flex justify-center">
         <div class="row mx-0 self-center">
-          <div class="col-md-6 col-sm-6 col-6 px-0">
-            <i
-              onClick={() => {
-                props.toggle(true)
-              }}
-              class="fa fa-ellipsis-v text-xl m-display px-2"
-              aria-hidden="true"
-            ></i>
-          </div>
-          <div class="col-md-6 col-sm-6 col-6 px-0">
-            <i
-              class="fa fa-times-circle text-xl px-2"
-              onClick={props.logout}
-              aria-hidden="true"
-            ></i>
+          <div class="col-md-12 col-sm-12 col-12 px-0">
+            <div class="dropdown">
+              <i
+                onClick={() =>
+                  document.getElementById("myDropdown").classList.toggle("show")
+                }
+                class="fa fa-ellipsis-v text-xl px-2"
+                aria-hidden="true"
+              ></i>
+              <div id="myDropdown" class="dropdown-content bg-gray-200 shadow rounded-lg p-2">
+                <div class="row m-0 text-sm">
+                  <div class="col-md-12 col-12 col-sm-12 py-1 hover:bg-gray-400 rounded-lg m-display" onClick={props.toggle}>
+                    Online Buddies
+                  </div>
+                  <div class="col-md-12 col-12 col-sm-12 py-1 hover:bg-gray-400 rounded-lg" onClick={props.logout}>
+                    Logout
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
