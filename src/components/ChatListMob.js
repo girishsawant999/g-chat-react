@@ -5,11 +5,11 @@ import "./ChatMain.scss";
 
 function ChatListMob(props) {
   return (
-    <div id="chatlistmob" class="m-display h-screen -m-margin-screen">
+    <div id="chatlistmob" class="h-screen m-margin-screen">
       <div class="bg-blue-700 text-white text-center font-medium py-3">
         Online Buddies
       </div>
-      <div class="row mx-0">
+      <div class="row mx-0 bg-gray-400">
         <div class="col-12 px-1 h-screen overflow-y-auto">
           {Object.values(props.users).map((user) => (
             <div class="row mx-0 py-2 my-1 bg-gray-200 rounded-lg">
@@ -29,8 +29,8 @@ function ChatListMob(props) {
         onClick={() => {
           props.toggle(false);
         }}
-        class="sticky-bottom bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded-full">
-        <i class="fa fa-arrow-up" aria-hidden="true"></i>
+        class="sticky-bottom bg-blue-700 hover:bg-blue-900 text-xl text-white font-bold py-1 px-3 rounded-full">
+        <i class="fa fa-caret-down" aria-hidden="true"></i>
       </div>
     </div>
   );

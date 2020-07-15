@@ -30,6 +30,9 @@
   .m-margin-screen {
     margin-top: 0vh;
   }
+  .m-text-white {
+    color: white;;
+  }
 }
 
 .dropdown {
@@ -42,7 +45,7 @@
   opacity: 0;
   visibility: hidden;
   position: absolute;
-  min-width: 160px;
+  min-width: 14rem;
   right: 0px;
   overflow: auto;
   z-index: 1;

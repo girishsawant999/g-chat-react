@@ -6,7 +6,7 @@ function ChatMessage(props) {
   const { message } = props;
   return (
     <div
-      class={`bg-blue-500 text-white p-2 my-2 max-w-message ${
+      class={`bg-blue-700 text-white p-2 my-2 max-w-message ${
         message.pos === "left" ? left : right
       }`}>
       {message.message}

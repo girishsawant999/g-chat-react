@@ -87,7 +87,7 @@ const Join = () => {
                 <div class="mt-4">
                   <button
                     type="submit"
-                    class="flex mx-auto text-white bg-blue-500 border-0 py-2 px-8 focus:outline-none hover:bg-blue-700 rounded text-lg">
+                    class="flex mx-auto text-white bg-blue-700 border-0 py-2 px-8 focus:outline-none hover:bg-blue-900 rounded text-lg">
                     Explore
                   </button>
                 </div>
