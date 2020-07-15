@@ -7,7 +7,6 @@ import ChatInput from "./ChatInput";
 import "./ChatMain.scss";
 import ChatMessage from "./ChatMessage";
 
-
 function ChatMain(props) {
   const location = useLocation();
   const history = useHistory();
@@ -16,7 +15,6 @@ function ChatMain(props) {
     history.push("/");
   }
   const { user } = location.state;
-
 
   const sendMessage = (message) => {
     if (!message) return;
@@ -30,10 +28,10 @@ function ChatMain(props) {
     let ele = document.createElement("div");
     ReactDOM.render(<ChatMessage message={message} />, ele);
     chatContainer.append(ele);
-    if (message.pos === "left"){
+    if (message.pos === "left") {
       var audio = new Audio("../assets/tones/Notification.mp3");
       audio.play();
-    } 
+    }
     chatContainer.scrollTop = chatContainer.scrollHeight;
   };
 
@@ -47,12 +45,16 @@ function ChatMain(props) {
         notice: true,
       });
     });
-  
+
     socket.on("left", (user) => {
-      setusers(users.filter((tempUser) => tempUser.name !== user.name)); 
-      addMessage({ message: `${user.name} left the chat`, pos: "left", notice: true });
+      setusers(users.filter((tempUser) => tempUser.name !== user.name));
+      addMessage({
+        message: `${user.name} left the chat`,
+        pos: "left",
+        notice: true,
+      });
     });
-  
+
     socket.on("receive", (data) => {
       addMessage({
         message: `${data.user.name} : ${data.message}`,
@@ -60,19 +62,21 @@ function ChatMain(props) {
         notice: true,
       });
     });
-  
+
     return () => {};
   }, []);
 
   return (
-    <div class="row h-screen w-screen bg-gray-200 ">
-      <div class="col-md-4 col-12 col-sm-12 px-0 bg-gray-400"></div>
-      <div class="col-md-8 col-12 col-sm-12 px-0">
-        <ChatHeader user={user} />
-        <div class="row bg-gray-200 rounded-lg">
-          <div class="col-md-12 py-2 overflow-auto chatContainer"></div>
+    <div class="h-screen w-screen">
+      <div class="row mx-0 bg-gray-200 ">
+        <div class="col-md-4 col-12 col-sm-4 px-0 bg-blue-500"></div>
+        <div class="col-md-8 col-12 col-sm-8 px-0">
+          <ChatHeader user={user} />
+          <div class="row mx-0 rounded-lg">
+            <div class="col-md-12 col-12 col-sm-12 py-2 bg-gray-200  overflow-auto chatContainer"></div>
+          </div>
+          <ChatInput sendMessage={sendMessage} />
         </div>
-        <ChatInput sendMessage={sendMessage} />
       </div>
     </div>
   );

@@ -43,7 +43,7 @@ const Join = () => {
                     <input
                       onChange={(e)=>{setGender(e.target.value)}}
                       type="radio"
-                      class="form-radio"
+                      class="form-radio text-blue-500"
                       name="gender"
                       value="male"
                       required
@@ -54,7 +54,7 @@ const Join = () => {
                     <input
                       onChange={(e)=>{setGender(e.target.value)}}
                       type="radio"
-                      class="form-radio"
+                      class="form-radio text-blue-500"
                       name="gender"
                       value="female"
                       required

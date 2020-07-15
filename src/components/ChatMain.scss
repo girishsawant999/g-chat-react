@@ -1,3 +1,8 @@
 .chatContainer {
     height: calc( 100vh - 145px );
 }
+@media screen and (max-width: 576px) {
+    .btn-m-sm {
+        font-size: small;
+    }
+  }
