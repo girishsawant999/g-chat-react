@@ -6,6 +6,8 @@ import ChatHeader from "./ChatHeader";
 import ChatInput from "./ChatInput";
 import "./ChatMain.scss";
 import ChatMessage from "./ChatMessage";
+import picMale from "../assets/images/avatars/pic-1-m.png";
+import picFemale from "../assets/images/avatars/pic-2-m.png";
 
 function ChatMain(props) {
   const location = useLocation();
@@ -51,14 +53,19 @@ function ChatMain(props) {
     }
   };
 
+  
   useEffect(() => {
+    let USERID;
     socket.emit("new-user-joined", user);
     socket.on("get-users-list", (userId, allUsers) => {
+      delete allUsers[userId]
+      USERID = userId;
       setusers(allUsers);
     });
     socket.on("user-joined", (userId, allUsers) => {
+      delete allUsers[USERID]
       setusers(allUsers);
-      addMessage({
+      allUsers[userId] && addMessage({
         message: `${allUsers[userId].name} joined the chat`,
         pos: "left",
         notice: true,
@@ -66,6 +73,7 @@ function ChatMain(props) {
     });
 
     socket.on("left", (userId, allUsers) => {
+      delete allUsers[USERID]
       setusers(allUsers);
       allUsers[userId] &&
         addMessage({
@@ -90,14 +98,11 @@ function ChatMain(props) {
       <div class="row mx-0 bg-gray-400 ">
         <div
           id="chatList"
-          class="col-md-4 col-12 h-screen col-sm-4 m-hidden border-gray-700 border-r-1 border-blue-700 md:border-r-2 xl:border-r-2 lg:border-r-2"
+          class="col-md-4 col-12 h-full col-sm-4 px-0 m-hidden border-gray-700 border-r-1 border-blue-700 md:border-r-2 xl:border-r-2 lg:border-r-2"
         >
-          <div class="text-white text-center py-3">
-            <div class="rounded-full bg-blue-700 py-2">
-              <h2>G-Chat</h2>
-            </div>
+          <div class="bg-blue-700 text-white text-center font-medium py-4">
+            <h2>G-Chat</h2>
           </div>
-          <hr class="mt-0" />
           <div class="row mx-0 py-2">
             <div class="col-md-12 col-sm-12 col-12 text-right">
               <div
@@ -111,11 +116,19 @@ function ChatMain(props) {
             </div>
           </div>
           <div class="row mx-0">
-            {Object.values(users).map((user) => (
-              <div class="py-2">
-                {user.name} &nbsp;&nbsp; {user.gender}
-              </div>
-            ))}
+            <div class="col-md-12 col-12 col-sm-12 px-1">
+              {Object.values(users).map((user) => (
+                <div class="row mx-0 py-2 my-1 bg-gray-200 rounded-lg">
+                  <div class="col-md-2 col-sm-2 col-2 self-center">
+                    <img
+                      src={user.gender === "male" ? picMale : picFemale}
+                      alt="profile"
+                    />
+                  </div>
+                  <div class="col-md-10 col-sm-10 col-10 self-center">{user.name}</div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
         <div id="chatContainer" class="col-md-8 col-12 col-sm-8 px-0">
