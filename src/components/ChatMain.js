@@ -53,27 +53,27 @@ function ChatMain(props) {
     }
   };
 
-  
   useEffect(() => {
     let USERID;
     socket.emit("new-user-joined", user);
     socket.on("get-users-list", (userId, allUsers) => {
-      delete allUsers[userId]
+      delete allUsers[userId];
       USERID = userId;
       setusers(allUsers);
     });
     socket.on("user-joined", (userId, allUsers) => {
-      delete allUsers[USERID]
+      delete allUsers[USERID];
       setusers(allUsers);
-      allUsers[userId] && addMessage({
-        message: `${allUsers[userId].name} joined the chat`,
-        pos: "left",
-        notice: true,
-      });
+      allUsers[userId] &&
+        addMessage({
+          message: `${allUsers[userId].name} joined the chat`,
+          pos: "left",
+          notice: true,
+        });
     });
 
     socket.on("left", (userId, allUsers) => {
-      delete allUsers[USERID]
+      delete allUsers[USERID];
       setusers(allUsers);
       allUsers[userId] &&
         addMessage({
@@ -85,22 +85,21 @@ function ChatMain(props) {
 
     socket.on("receive", (data) => {
       addMessage({
-        message: `${data.user.name} : ${data.message}`,
-        pos: "left",
-        notice: true,
-      });
+          message: `${data.user.name} : ${data.message}`,
+          pos: "left",
+          notice: true,
+        });
     });
 
     return () => {};
   }, []);
   return (
-    <div class="h-screen w-screen">
-      <div class="row mx-0 bg-gray-400 ">
+      <div class="row h-screen mx-0 bg-gray-400 overflow-hidden">
         <div
           id="chatList"
-          class="col-md-4 col-12 h-full col-sm-4 px-0 m-hidden border-gray-700 border-r-1 border-blue-700 md:border-r-2 xl:border-r-2 lg:border-r-2"
+          class="col-md-4 col-12 col-sm-4 px-0 m-hidden border-gray-700 border-r-1 border-blue-700 md:border-r-2 xl:border-r-2 lg:border-r-2"
         >
-          <div class="bg-blue-700 text-white text-center font-medium py-4">
+          <div class="bg-blue-700 text-white text-center py-4">
             <h2>G-Chat</h2>
           </div>
           <div class="row mx-0 py-2">
@@ -109,6 +108,7 @@ function ChatMain(props) {
                 onClick={() => {
                   toggle(false);
                 }}
+                class="font-medium"
               >
                 Start Chat{" "}
                 <i class="fa fa-align-justify px-2" aria-hidden="true"></i>
@@ -125,7 +125,9 @@ function ChatMain(props) {
                       alt="profile"
                     />
                   </div>
-                  <div class="col-md-10 col-sm-10 col-10 self-center">{user.name}</div>
+                  <div class="col-md-10 col-sm-10 col-10 self-center">
+                    {user.name}
+                  </div>
                 </div>
               ))}
             </div>
@@ -139,7 +141,6 @@ function ChatMain(props) {
           <ChatInput sendMessage={sendMessage} />
         </div>
       </div>
-    </div>
   );
 }
 
