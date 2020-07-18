@@ -31,7 +31,7 @@
     margin-top: 0vh;
   }
   .m-text-white {
-    color: white;;
+    color: white;
   }
 }
 
@@ -39,7 +39,10 @@
   position: relative;
   display: inline-block;
 }
-
+.typing-dropdown {
+  position: relative;
+  display: inline-block;
+}
 .dropdown-content {
   //   display: none;
   opacity: 0;
@@ -49,10 +52,18 @@
   right: 0px;
   overflow: auto;
   z-index: 1;
-  -webkit-transition: opacity 600ms, visibility 600ms;
-  -moz-transition: opacity 600ms, visibility 600ms;
-  -o-transition: opacity 600ms, visibility 600ms;
-  transition: opacity 600ms, visibility 600ms;
+  -webkit-transition: opacity 400ms, visibility 400ms;
+  -moz-transition: opacity 400ms, visibility 400ms;
+  -o-transition: opacity 400ms, visibility 400ms;
+  transition: opacity 400ms, visibility 400ms;
+}
+.typing-dropdown-content {
+  z-index: 1;
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: fit-content;
+  bottom: -35px;
 }
 .show {
   //   display: block;

@@ -17864,13 +17864,17 @@ video {
   transition-delay: 1000ms;
 }
 
-$fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
+$fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
 
-@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import "~@fortawesome/fontawesome-free/scss/fontawesome";
 
-@import '~@fortawesome/fontawesome-free/scss/regular';
+@import "~@fortawesome/fontawesome-free/scss/regular";
 
-@import '~@fortawesome/fontawesome-free/scss/solid';
+@import "~@fortawesome/fontawesome-free/scss/solid";
+
+html {
+  scroll-behavior: smooth;
+}
 
 @media (min-width: 640px) {
   .sm\:space-y-0 > :not(template) ~ :not(template) {

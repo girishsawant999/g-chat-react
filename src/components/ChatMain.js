@@ -4,15 +4,16 @@ import { useHistory, useLocation } from "react-router-dom";
 import { socket } from "../serverConfig";
 import ChatHeader from "./ChatHeader";
 import ChatInput from "./ChatInput";
+import ChatListMob from "./ChatListMob";
 import ChatListWeb from "./ChatListWeb";
 import "./ChatMain.scss";
 import ChatMessage from "./ChatMessage";
-import ChatListMob from "./ChatListMob";
 
 function ChatMain(props) {
   const location = useLocation();
   const history = useHistory();
   const [users, setusers] = useState([]);
+  const [typingUser, settypingUser] = useState(null);
   if (!(location && location.state && location.state.user)) {
     history.push("/");
   }
@@ -29,6 +30,10 @@ function ChatMain(props) {
     history.push("/");
   };
 
+  const typing = (isTyping) => {
+    console.log("object", isTyping);
+    socket.emit("typing", isTyping);
+  };
   const addMessage = (message) => {
     const chatContainer = document.querySelector(".chatContainer");
     let ele = document.createElement("div");
@@ -89,6 +94,11 @@ function ChatMain(props) {
       });
     });
 
+    socket.on("typing-Waiting", (user) => {
+      console.log("typing-user", user);
+      settypingUser(user);
+    });
+
     return () => {};
   }, []);
   return (
@@ -99,14 +109,19 @@ function ChatMain(props) {
         <ChatListWeb toggle={toggle} users={users} />
       </div>
       <div id="chatContainer" class="col-md-8 col-12 col-sm-8 px-0">
-        <ChatHeader user={user} logout={logout} toggle={toggle} />
+        <ChatHeader
+          user={user}
+          logout={logout}
+          toggle={toggle}
+          typingUser={typingUser}
+        />
         <div class="row mx-0 rounded-lg">
           <div class="col-12 py-2 bg-gray-200  overflow-auto chatContainer"></div>
         </div>
-        <ChatInput sendMessage={sendMessage} />
+        <ChatInput sendMessage={sendMessage} typing={typing} />
       </div>
       <div class="col-12 block md:none px-0 border-gray-700 border-r-1 border-blue-700 md:border-r-2 xl:border-r-2 lg:border-r-2">
-          <ChatListMob toggle={toggle} users={users} />
+        <ChatListMob toggle={toggle} users={users} />
       </div>
     </div>
   );
