@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import { useHistory, useLocation } from "react-router-dom";
+import Notification from "../assets/tones/Notification.mp3";
 import { socket } from "../serverConfig";
 import ChatHeader from "./ChatHeader";
 import ChatInput from "./ChatInput";
@@ -9,6 +10,7 @@ import ChatListWeb from "./ChatListWeb";
 import "./ChatMain.scss";
 import ChatMessage from "./ChatMessage";
 
+const audio = new Audio(Notification);
 function ChatMain(props) {
   const location = useLocation();
   const history = useHistory();
@@ -39,7 +41,6 @@ function ChatMain(props) {
     ReactDOM.render(<ChatMessage message={message} />, ele);
     chatContainer.append(ele);
     if (message.pos === "left") {
-      var audio = new Audio("../assets/tones/Notification.mp3");
       audio.play();
     }
     chatContainer.scrollTop = chatContainer.scrollHeight;

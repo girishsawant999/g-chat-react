@@ -12,7 +12,7 @@ function ChatInput(props) {
         <div class="col-md-10 col-sm-9 col-9">
           <input
             id="chatInput"
-            onInput={(e) => setmessage(e.target.value)}
+            onChange={(e) => setmessage(e.target.value)}
             onFocus={() => props.typing(true)}
             onBlur={() => props.typing(false)}
             value={message}
