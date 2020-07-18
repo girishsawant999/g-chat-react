@@ -31,7 +31,6 @@ function ChatMain(props) {
   };
 
   const typing = (isTyping) => {
-    console.log("object", isTyping);
     socket.emit("typing", isTyping);
   };
   const addMessage = (message) => {
@@ -76,6 +75,7 @@ function ChatMain(props) {
     });
 
     socket.on("left", (userId, allUsers) => {
+      settypingUser(user);
       delete allUsers[USERID];
       setusers(allUsers);
       allUsers[userId] &&
@@ -95,7 +95,6 @@ function ChatMain(props) {
     });
 
     socket.on("typing-Waiting", (user) => {
-      console.log("typing-user", user);
       settypingUser(user);
     });
 

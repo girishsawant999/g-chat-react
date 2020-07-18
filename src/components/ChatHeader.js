@@ -14,7 +14,7 @@ function ChatHeader(props) {
   };
 
   return (
-    <div class="row mx-0 py-2 bg-blue-700 m-text-white sm:bg-gray-400 sm:text-gray-900 typing-dropdown">
+    <div class="row mx-0 py-2 bg-blue-700 m-text-white sm:bg-gray-400 sm:text-gray-900 relative">
       <div class="col-md-2 col-sm-3 col-3">
         <div class="w-16 h-16 rounded-full inline-flex items-center justify-center">
           <img
