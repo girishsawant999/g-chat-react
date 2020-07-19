@@ -18,7 +18,7 @@
     padding-left: 5px !important;
     padding-right: 5px !important;
   }
-  #chatlistmob {
+  #chatContainer {
     -webkit-transition: margin 400ms ease-in-out;
     -moz-transition: margin 400ms ease-in-out;
     -o-transition: margin 400ms ease-in-out;
@@ -26,9 +26,6 @@
   }
   .-m-margin-screen {
     margin-top: -100vh;
-  }
-  .m-margin-screen {
-    margin-top: 0vh;
   }
   .m-text-white {
     color: white;

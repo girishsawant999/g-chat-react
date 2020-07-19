@@ -5,7 +5,7 @@ import "./ChatMain.scss";
 
 function ChatListMob(props) {
   return (
-    <div id="chatlistmob" class="h-screen m-margin-screen">
+    <div id="chatlistmob" class="h-screen">
       <div class="bg-blue-700 text-white text-center font-medium py-3">
         Online Buddies
       </div>

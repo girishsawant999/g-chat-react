@@ -46,14 +46,8 @@ function ChatMain(props) {
     chatContainer.scrollTop = chatContainer.scrollHeight;
   };
   const toggle = (cond) => {
-    const ele = document.getElementById("chatlistmob");
-    if (ele.classList.contains("-m-margin-screen")) {
-      ele.classList.remove("-m-margin-screen");
-      ele.classList.add("m-margin-screen");
-    } else {
-      ele.classList.add("-m-margin-screen");
-      ele.classList.remove("m-margin-screen");
-    }
+    const ele = document.getElementById("chatContainer");
+    ele.classList.toggle("-m-margin-screen");
   };
 
   useEffect(() => {
