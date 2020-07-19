@@ -29,7 +29,7 @@ function ChatListMob(props) {
         onClick={() => {
           props.toggle(false);
         }}
-        class="sticky-bottom bg-blue-700 hover:bg-blue-900 text-xl text-white font-bold py-1 px-3 rounded-full">
+        class="sticky-bottom mx-auto bg-blue-700 hover:bg-blue-900 text-xl text-white font-bold py-1 px-3 rounded-full">
         <i class="fa fa-caret-down" aria-hidden="true"></i>
       </div>
     </div>

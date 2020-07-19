@@ -65,8 +65,10 @@
 }
 .sticky-bottom {
   position: absolute;
+  max-width: fit-content;
   bottom: 15px;
-  left: calc(50% - 12px);
+  right: 0px;
+  left: 0px;
   z-index: 1;
 }
 .max-h-50 {

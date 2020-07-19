@@ -24,7 +24,9 @@ function ChatInput(props) {
         </div>
         <div class="col-md-2 col-sm-3 col-3 pl-0">
           <button
-            onClick={() => document.getElementById("chatInput").focus()}
+            onClick={(e) => {
+              document.getElementById("chatInput").focus();
+            }}
             type="submit"
             class="text-white w-full bg-blue-700 border-0 py-2 focus:outline-none hover:bg-blue-900 rounded-full text-lg">
             Send
