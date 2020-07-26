@@ -11,6 +11,8 @@ import "./ChatMain.scss";
 import ChatMessage from "./ChatMessage";
 
 const audio = new Audio(Notification);
+const time = new Date();
+
 function ChatMain(props) {
   const location = useLocation();
   const history = useHistory();
@@ -23,7 +25,17 @@ function ChatMain(props) {
 
   const sendMessage = (message) => {
     if (!message) return;
-    addMessage({ message: `You : ${message}`, pos: "right", notice: true });
+    addMessage({
+      message: `You : ${message}`,
+      time: time.toLocaleString(undefined, {
+        timeZone: "Asia/Kolkata",
+        hour: "numeric",
+        minute: "numeric",
+        hour12: true,
+      }),
+      pos: "right",
+      notice: true,
+    });
     socket.emit("send", message);
     return true;
   };
@@ -35,6 +47,7 @@ function ChatMain(props) {
   const typing = (isTyping) => {
     socket.emit("typing", isTyping);
   };
+
   const addMessage = (message) => {
     const chatContainer = document.querySelector(".chatContainer");
     let ele = document.createElement("div");
@@ -45,6 +58,7 @@ function ChatMain(props) {
     }
     chatContainer.scrollTop = chatContainer.scrollHeight;
   };
+
   const toggle = (cond) => {
     const ele = document.getElementById("chatContainer");
     ele.classList.toggle("-m-margin-screen");
@@ -52,30 +66,33 @@ function ChatMain(props) {
 
   useEffect(() => {
     let USERID;
+
     socket.emit("new-user-joined", user);
     socket.on("get-users-list", (userId, allUsers) => {
       delete allUsers[userId];
       USERID = userId;
       setusers(allUsers);
     });
-    socket.on("user-joined", (userId, allUsers) => {
+    socket.on("user-joined", (userId, time, allUsers) => {
       delete allUsers[USERID];
       setusers(allUsers);
       allUsers[userId] &&
         addMessage({
           message: `${allUsers[userId].name} joined the chat`,
+          time: time,
           pos: "left",
           notice: true,
         });
     });
 
-    socket.on("left", (userId, allUsers) => {
+    socket.on("left", (userId, time, allUsers) => {
       settypingUser(user);
       delete allUsers[USERID];
       setusers(allUsers);
       allUsers[userId] &&
         addMessage({
           message: `${allUsers[userId].name} left the chat`,
+          time: time,
           pos: "left",
           notice: true,
         });
@@ -84,6 +101,7 @@ function ChatMain(props) {
     socket.on("receive", (data) => {
       addMessage({
         message: `${data.user.name} : ${data.message}`,
+        time: data.time,
         pos: "left",
         notice: true,
       });

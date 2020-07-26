@@ -6,10 +6,16 @@ function ChatMessage(props) {
   const { message } = props;
   return (
     <div
-      class={`bg-blue-700 text-white p-2 my-2 max-w-message ${
+      class={`relative bg-blue-700 text-white p-2 my-2 w-message ${
         message.pos === "left" ? left : right
       }`}>
       {message.message}
+      <div
+        class={`absolute text-xs text-gray-600 mt-1  ${
+          message.pos === "left" ? "left-0 ml-1" : "right-0 mr-1"
+        }`}>
+        {message.time}
+      </div>
     </div>
   );
 }
