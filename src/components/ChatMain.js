@@ -11,7 +11,6 @@ import "./ChatMain.scss";
 import ChatMessage from "./ChatMessage";
 
 const audio = new Audio(Notification);
-const time = new Date();
 
 function ChatMain(props) {
   const location = useLocation();
@@ -27,7 +26,7 @@ function ChatMain(props) {
     if (!message) return;
     addMessage({
       message: `You : ${message}`,
-      time: time.toLocaleString(undefined, {
+      time: new Date().toLocaleString(undefined, {
         timeZone: "Asia/Kolkata",
         hour: "numeric",
         minute: "numeric",
