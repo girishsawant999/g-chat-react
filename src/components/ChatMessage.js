@@ -11,7 +11,7 @@ function ChatMessage(props) {
       }`}>
       {message.message}
       <div
-        class={`absolute text-xs text-gray-600 mt-1  ${
+        class={`absolute text-xs text-gray-600 mt-custom-1  ${
           message.pos === "left" ? "left-0 ml-1" : "right-0 mr-1"
         }`}>
         {message.time}
