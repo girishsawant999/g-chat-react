@@ -111,7 +111,7 @@ function ChatMain(props) {
     });
 
     return () => {};
-  });
+  }, [user]);
   return (
     <div class="row h-screen mx-0 bg-gray-400 overflow-hidden">
       <div
